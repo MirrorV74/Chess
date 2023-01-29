@@ -1,8 +1,8 @@
-﻿
+﻿using System.Diagnostics;
 using ConsoleAppChess;
 
 string[,] board = new String[9, 9];
-    
+
 void Empty()
 {
     for (int i = 0; i < 8; i++)
@@ -13,6 +13,7 @@ void Empty()
         }
     }
 }
+
 void NumberColumn()
 {
     int counter = 8;
@@ -22,6 +23,7 @@ void NumberColumn()
         counter--;
     }
 }
+
 void LetterRow()
 {
     board[8, 8] = "   ";
@@ -41,12 +43,18 @@ void LetterRow()
     //    counter++;
     //}
 }
-void PiecesStartPosition()
+
+void PiecesStartPosition(Piece)
 {
     for (int i = 0; i < 8; i++)
     {
         board[1, i] = Tile.BlackPawn;
     }
+
+    Piece WhiteRook;
+    WhiteRook.color = "white";
+    WhiteRook.columnPosition = 0;
+    WhiteRook.rowPosition = 7;
     board[0, 0] = Tile.BlackRook;
     board[0, 1] = Tile.BlackKnight;
     board[0, 2] = Tile.BlackBishop;
@@ -55,11 +63,12 @@ void PiecesStartPosition()
     board[0, 5] = Tile.BlackBishop;
     board[0, 6] = Tile.BlackKnight;
     board[0, 7] = Tile.BlackRook;
-    
+
     for (int i = 0; i < 8; i++)
     {
         board[6, i] = Tile.WhitePawn;
     }
+
     board[7, 0] = Tile.WhiteRook;
     board[7, 1] = Tile.WhiteKnight;
     board[7, 2] = Tile.WhiteBishop;
@@ -78,86 +87,174 @@ void FillingTheBoard()
     PiecesStartPosition();
 }
 
-int ConvertMove()
+string ConvertMove(string move)
 {
-    
-}
-void MoveProcess(Move)
-{
-    string currentMoveStartTile = Console.ReadLine();
-    string currentMoveEndTile = Console.ReadLine();
-    char column = currentMoveStartTile.ToLower()[1];
-    switch (column)
-    {   
-        case 'a':
+    bool moveIsCorrect = true;
+    while (moveIsCorrect)
+    {
+        char row = move[1];
+        switch (row)
         {
-            column = '0';
-            return;
-        }
-        case 'b':
-        {
-            column = '1';
-            return;
-        }
-        case 'c':
-        {
-            column = '2';
-            return;
-        }
-        case 'd':
-        {
-            column = '3';
-            return;
-        }
-        case 'e':
-        {
-            column = '4';
-            return;
-        }
-        case 'f':
-        {
-            column = '5';
-            return;
-        }
-        case 'g':
-        {
-            column = '6';
-            return;
-        }
-        case 'h':
-        {
-            column = '7';
-            return;
+            case '1':
+            {
+                move = move.Replace("1", "7");
+                return move;
+            }
+            case '2':
+            {
+                move = move.Replace("2", "6");
+                return move;
+            }
+            case '3':
+            {
+                move = move.Replace("3", "5");
+                return move;
+            }
+            case '4':
+            {
+                move = move.Replace("4", "4");
+                return move;
+            }
+            case '5':
+            {
+                move = move.Replace("5", "3");
+                return move;
+            }
+            case '6':
+            {
+                move = move.Replace("6", "2");
+                return move;
+            }
+            case '7':
+            {
+                move = move.Replace("7", "1");
+                return move;
+            }
+            case '8':
+            {
+                move = move.Replace("8", "0");
+                return move;
+            }
+            default:
+            {
+                Console.WriteLine("Incorrect wording. Try again!");
+                moveIsCorrect = false;
+                break;
+            }
         }
     }
+
+    moveIsCorrect = true;
+    while (moveIsCorrect)
+    {
+        char column = move.ToLower()[0];
+        switch (column)
+        {
+            case 'a':
+            {
+                move = move.Replace("a", "o");
+                return move;
+            }
+            case 'b':
+            {
+                move = move.Replace("b", "1");
+                return move;
+            }
+            case 'c':
+            {
+                move = move.Replace("c", "2");
+                return move;
+            }
+            case 'd':
+            {
+                move = move.Replace("d", "3");
+                return move;
+            }
+            case 'e':
+            {
+                move = move.Replace("e", "4");
+                return move;
+            }
+            case 'f':
+            {
+                move = move.Replace("f", "5");
+                return move;
+            }
+            case 'g':
+            {
+                move = move.Replace("g", "6");
+                return move;
+            }
+            case 'h':
+            {
+                move = move.Replace("h", "7");
+                return move;
+            }
+            default:
+            {
+                Console.WriteLine("Incorrect wording");
+                moveIsCorrect = false;
+                break;
+            }
+        }
+    }
+    return move;
 }
 
+void Move(bool white)
+{
+    string currentMoveStartPosition = Console.ReadLine();
+    ConvertMove(currentMoveStartPosition);
+    
+    string currentMoveEndPosition = Console.ReadLine();
+    ConvertMove(currentMoveEndPosition);
+
+    if (white)
+    {
+        switch (board[currentMoveStartPosition[0],currentMoveStartPosition[1]])
+        {
+            case Tile.WhiteRook:
+            {
+                
+            }
+        }
+    }
+    else
+    {
+        
+    }
+}
 
 bool turnInProcess = true;
-while (turnInProcess)
-{
-    for (int i = 0; i < 9; i++)
+    while (turnInProcess)
     {
-        for (int j = 0; j < 9; j++)
+        for (int i = 0; i < 9; i++)
         {
-            if ((i + j) % 2 == 0)
+            for (int j = 0; j < 9; j++)
             {
-                Console.BackgroundColor = ConsoleColor.White;
-            }
-            else
-            {
-                Console.BackgroundColor = ConsoleColor.Black;
+                if ((i + j) % 2 == 0)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+
+                if (i == 8 || j == 8)
+                {
+                    Console.BackgroundColor = ConsoleColor.Yellow;
+                }
+
+                Console.Write(board[i, j]);
             }
 
-            if (i == 8 || j == 8)
-            {
-                Console.BackgroundColor = ConsoleColor.Yellow;
-            }
-            Console.Write(board[i,j]);
+            Console.WriteLine();
         }
-        Console.WriteLine();
-    }
-    turnInProcess = false;
-}
 
-FillingTheBoard();
+        turnInProcess = false;
+    }
+
+    FillingTheBoard();
+    bool whitesTurn = true;
+    Move(whitesTurn);
