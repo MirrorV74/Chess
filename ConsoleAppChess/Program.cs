@@ -44,17 +44,13 @@ void LetterRow()
     //}
 }
 
-void PiecesStartPosition(Piece)
+void PiecesStartPosition()
 {
     for (int i = 0; i < 8; i++)
     {
         board[1, i] = Tile.BlackPawn;
     }
-
-    Piece WhiteRook;
-    WhiteRook.color = "white";
-    WhiteRook.columnPosition = 0;
-    WhiteRook.rowPosition = 7;
+    
     board[0, 0] = Tile.BlackRook;
     board[0, 1] = Tile.BlackKnight;
     board[0, 2] = Tile.BlackBishop;
@@ -69,6 +65,11 @@ void PiecesStartPosition(Piece)
         board[6, i] = Tile.WhitePawn;
     }
 
+    //Piece WhiteRook;
+    //WhiteRook.color = "white";
+    //WhiteRook.columnPosition = 0;
+    //WhiteRook.rowPosition = 7;
+    
     board[7, 0] = Tile.WhiteRook;
     board[7, 1] = Tile.WhiteKnight;
     board[7, 2] = Tile.WhiteBishop;
@@ -201,28 +202,13 @@ string ConvertMove(string move)
     return move;
 }
 
-void Move(bool white)
+void Move()
 {
     string currentMoveStartPosition = Console.ReadLine();
     ConvertMove(currentMoveStartPosition);
     
     string currentMoveEndPosition = Console.ReadLine();
     ConvertMove(currentMoveEndPosition);
-
-    if (white)
-    {
-        switch (board[currentMoveStartPosition[0],currentMoveStartPosition[1]])
-        {
-            case Tile.WhiteRook:
-            {
-                
-            }
-        }
-    }
-    else
-    {
-        
-    }
 }
 
 bool turnInProcess = true;
@@ -254,7 +240,4 @@ bool turnInProcess = true;
 
         turnInProcess = false;
     }
-
-    FillingTheBoard();
-    bool whitesTurn = true;
-    Move(whitesTurn);
+FillingTheBoard();
